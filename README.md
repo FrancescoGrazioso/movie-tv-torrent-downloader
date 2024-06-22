@@ -21,7 +21,7 @@ Make sure you have the following prerequisites installed on your system:
 
 * [python](https://www.python.org/downloads/) > 3.8
 * [qbittorrent](https://www.qbittorrent.org/download)
-* [qbittorrent-nox](https://packages.debian.org/it/sid/qbittorrent-nox)
+* [qbittorrent-nox](https://packages.debian.org/it/sid/qbittorrent-nox) or WebUI activated
 
 ## Installation
 
@@ -35,7 +35,13 @@ pip install -r requirements.txt
 
 Run the script with the following command:
 
-#### On Linux:
+#### On Windows:
+
+```powershell
+python run.py
+```
+
+#### On Linux/Mac:
 
 ```bash
 python3 run.py
@@ -53,5 +59,4 @@ You can change some behaviors by tweaking the configuration file (`config.json`)
 
 ## To do
 - GUI
-- Windwos support
 - Docker support
