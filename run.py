@@ -61,5 +61,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
-    os.system('qbittorrent-nox --webui-port=8080')
+    main()
