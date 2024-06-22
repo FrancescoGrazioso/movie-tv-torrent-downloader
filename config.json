@@ -1,6 +1,8 @@
 {
   "AUTH": {
-    "QB_USER": "adnim",
-    "QB_PASSWD": "**insert password here**"
-  }
+    "QB_USER": "admin",
+    "QB_PASSWD": "** your password **"
+  },
+  "QB_URL": "http://localhost:8080",
+  "QB_DEFAULT_SAVE_PATH": "/home/Downloads"
 }

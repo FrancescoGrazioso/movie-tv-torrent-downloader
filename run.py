@@ -1,5 +1,5 @@
 import json
-import os
+import sys
 
 from qbittorrent import Client
 from rich import prompt
@@ -7,28 +7,21 @@ from rich import prompt
 from utils.classes.torrent_info import TorrentInfo
 from utils.classes.torrent_search import TorrentParserResult
 from utils.cli.search_result_table import SearchResultTable
+from utils.services.config import ConfigManager
 
 
 def perform_search(search_terms: str, page: int = 1):
     return TorrentParserResult.from_search_terms(search_terms, page=page)
 
 
-def load_config():
-    with open('config.json') as f:
-        data = json.load(f)
-    return data['AUTH']['QB_USER'], data['AUTH']['QB_PASSWD']
-
-
 def main():
-    qb = Client('http://127.0.0.1:8080/')
+    config = ConfigManager()
+    qb = Client(config.QBITTORRENT_URL, verify=False)
 
-    username, password = load_config()
-    qb.login(username, password)
-
-    torrents = qb.torrents()
-
-    for torrent in torrents:
-        print(torrent['name'])
+    username, password = config.QBITTORRENT_AUTH
+    if login_result := qb.login(username, password):
+        print("Failed to login to qBittorrent. Exiting.")
+        sys.exit(1)
 
     search_terms = prompt.Prompt.ask("Enter search terms: ")
     page = 1
@@ -50,12 +43,20 @@ def main():
             search_terms = prompt.Prompt.ask("Enter search terms: ")
             page = 1
         elif choice == "q":
-            break
+            sys.exit(0)
         elif choice.isdigit():
             choice = int(choice)
             if 0 <= choice < len(torrent_results.items):
-                info = TorrentInfo.from_torrent_id(torrent_results.items[choice].torrentId)
-                print(info)
+                if info := TorrentInfo.from_torrent_id(
+                    torrent_results.items[choice].torrentId
+                ):
+                    # ask for the save path, default to the one in the config
+                    path_to_save = prompt.Prompt.ask(
+                        "Enter the path to save the torrent file: ",
+                        default=config.QB_DEFAULT_SAVE_PATH,
+                    )
+                    print(f"Adding {info.name} to qBittorrent.")
+                    qb.download_from_link(info.magnetLink, savepath=path_to_save)
             else:
                 print("Invalid ID. Please try again.")
 
