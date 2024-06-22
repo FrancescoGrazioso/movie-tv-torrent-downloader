@@ -7,7 +7,7 @@ class SearchResultTable:
     def __init__(self, torrent_results: TorrentParserResult):
         self.torrent_results = torrent_results
 
-    def print_table(self):
+    def generate_table(self):
         table_data = table.Table(title="Torrent Search Results")
         table_data.add_column("ID", style="bold", justify="left")
         table_data.add_column("Name", style="bold", justify="left")

@@ -1,3 +1,4 @@
 httpx
 1337x
 rich
+python-qbittorrent
