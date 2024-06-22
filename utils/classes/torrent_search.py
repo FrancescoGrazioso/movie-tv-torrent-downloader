@@ -49,6 +49,18 @@ class TorrentParserResult:
             page_count=data["pageCount"],
         )
 
+    """
+    Creates a TorrentParserResult instance from the search terms and page number.
+
+    Performs a search using the provided search terms and page number, retrieves the response, and constructs a TorrentParserResult instance from the response data.
+
+    Args:
+        search_terms: The terms to search for.
+        page: The page number of the search results (default is 1).
+
+    Returns:
+        TorrentParserResult: The parsed search results.
+    """
     @classmethod
     def from_search_terms(cls, search_terms, page=1):
         response = cls.torrents.search(search_terms, page=page)
