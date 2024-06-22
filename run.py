@@ -52,7 +52,7 @@ def main():
                 ):
                     # ask for the save path, default to the one in the config
                     path_to_save = prompt.Prompt.ask(
-                        "Enter the path to save the torrent file: ",
+                        "Enter the path to save the torrent file",
                         default=config.QB_DEFAULT_SAVE_PATH,
                     )
                     print(f"Adding {info.name} to qBittorrent.")
