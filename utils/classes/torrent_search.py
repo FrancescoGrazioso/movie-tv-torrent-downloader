@@ -26,7 +26,7 @@ class TorrentItem:
 
 
 class TorrentParserResult:
-    torrents = py1337x(proxy="1337x.to", cache="py1337xCache", cacheTime=500)
+    torrents = py1337x()
 
     def __init__(self, items, current_page, item_count, page_count):
         self.items = [TorrentItem(**item) for item in items]
